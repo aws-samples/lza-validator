@@ -23,5 +23,3 @@ for release in $latest_n_releases; do
   cd ..
   $tooling build -t lza-validator:$release .
 done
-
-
