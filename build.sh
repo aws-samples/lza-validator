@@ -21,7 +21,6 @@ for release in $latest_n_releases; do
   cd landing-zone-accelerator-on-aws
   git -c advice.detachedHead=false checkout $release
   cd ..
-  $tooling build -t lza-validator:$release .
+  echo $release
+  $tooling build --build-arg $release --tag lza-validator:$release .
 done
-
-
