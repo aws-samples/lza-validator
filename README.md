@@ -39,28 +39,45 @@ _Use [finch](https://github.com/runfinch/finch) if you don't have Docker Desktop
 docker run --rm --volume <path_to_lza_configuration_folder>:/lza/config lza-validator:<lza_release>
 ```
 
-For example:
+**Note**: If you use [dynamic lookups from the parameter store](https://docs.aws.amazon.com/solutions/latest/landing-zone-accelerator-on-aws/working-with-solution-specific-variables.html) within configuration files, then you need to pass AWS credentials to the lza-validator container so it can lookup the ssm parameters. Here are some examples:
 
 ```
-➜  ~ docker run --rm --volume ~/aws-accelerator-config:/lza/config lza-validator:v1.4.1
+docker run --rm \
+-e AWS_ACCESS_KEY_ID="XXXXXXXXXXXXXXX" \
+-e AWS_SECRET_ACCESS_KEY="XXXXXXXXXXXXXXXXXXXXXXXXXXX" \
+-e AWS_SESSION_TOKEN="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxXXXXXXXXX" \
+--volume ~/aws-accelerator-config:/lza/config lza-validator:<lza_release>
+```
+
+```
+docker run --rm \
+--env-file <(aws configure export-credentials --format env-no-export --profile XXXXXX) \
+--volume ~/aws-accelerator-config:/lza/config lza-validator:<lza_release>
+```
+
+Here are the sample outputs:
+
+```
+➜  ~ docker run --rm --volume ~/aws-accelerator-config:/lza/config lza-validator:v1.6.3
 
 yarn run v1.22.19
-$ ts-node $PWD/packages/@aws-accelerator/accelerator/lib/config-validator.ts /lza/config/
-2023-06-16 04:35:50.257 | info | config-validator | Config source directory -  /lza/config/
-2023-06-16 04:35:50.352 | info | accounts-config-validator | accounts-config.yaml file validation started
-2023-06-16 04:35:50.354 | info | customizations-config-validator | customizations-config.yaml file validation started
-2023-06-16 04:35:50.366 | info | global-config-validator | global-config.yaml file validation started
-2023-06-16 04:35:50.375 | info | iam-config-validator | iam-config.yaml file validation started
-2023-06-16 04:35:50.383 | info | network-config-validator | network-config.yaml file validation started
-2023-06-16 04:35:50.390 | info | organization-config-validator | organization-config.yaml file validation started
-2023-06-16 04:35:50.416 | info | security-config-validator | security-config.yaml file validation started
-2023-06-16 04:35:50.428 | info | config-validator | Config file validation successful.
-(node:28) NOTE: We are formalizing our plans to enter AWS SDK for JavaScript (v2) into maintenance mode in 2023.
-
-Please migrate your code to use AWS SDK for JavaScript (v3).
-For more information, check the migration guide at https://a.co/7PzMCcy
-(Use `node --trace-warnings ...` to show where the warning was created)
-Done in 6.42s.
+$ ts-node ./packages/@aws-accelerator/accelerator/lib/config-validator.ts /lza/config/
+2024-05-22 06:37:14.665 | info | replacements-config | Loading replacements config substitution values
+2024-05-22 06:37:14.726 | info | config-validator | Config source directory -  /lza/config/
+2024-05-22 06:37:14.732 | info | replacements-config | Loading replacements config substitution values
+2024-05-22 06:37:14.747 | info | replacements-config | Loading replacements config substitution values
+2024-05-22 06:37:14.750 | info | replacements-config | Loading replacements config substitution values
+2024-05-22 06:37:14.816 | info | accounts-config-validator | accounts-config.yaml file validation started
+2024-05-22 06:37:14.833 | info | global-config-validator | global-config.yaml file validation started
+2024-05-22 06:37:14.854 | info | global-config-validator | email count: 1
+2024-05-22 06:37:14.855 | info | global-config-validator | email count: 1
+2024-05-22 06:37:14.856 | info | global-config-validator | email count: 1
+2024-05-22 06:37:14.868 | info | iam-config-validator | iam-config.yaml file validation started
+2024-05-22 06:37:14.878 | info | network-config-validator | network-config.yaml file validation started
+2024-05-22 06:37:14.886 | info | organization-config-validator | organization-config.yaml file validation started
+2024-05-22 06:37:14.896 | info | security-config-validator | security-config.yaml file validation started
+2024-05-22 06:37:14.905 | info | config-validator | Config file validation successful.
+Done in 31.28s.
 ```
 
 **Tip**: Write a bash script wrapper to simplify the usage - Create an **executable** file `/usr/local/bin/lza-validator` with following contents.
