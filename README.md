@@ -93,7 +93,7 @@ Now you can validate the configurations with the syntax: `lza-validator <lza_rel
 For example:
 
 ```
-lza-validator v1.4.1 ~/aws-accelerator-config
+lza-validator v1.6.3 ~/aws-accelerator-config
 ```
 
 ## Development
@@ -101,6 +101,11 @@ lza-validator v1.4.1 ~/aws-accelerator-config
 - [lza-validator.sh](./lza-validator.sh): The entrypoint for the docker image.
 - [Dockerfile](./Dockerfile): Dockerfile for LZA-Validator docker image.
 - [build.sh](./build.sh): Run this script to start build images.
+
+## Others
+
+- [Use LZA-Validator in GitHub Action](https://github.com/aws-samples/lza-validator/issues/7)
+- [Use LZA-RepoSync to sync LZA configuration repository from GitHub/GitLab/Bitbucket to CodeCommit](https://github.com/aws-samples/sample-repository-sync-code-for-landing-zone-accelerator)
 
 ## Security
 
