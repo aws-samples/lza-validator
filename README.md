@@ -39,7 +39,7 @@ _Use [finch](https://github.com/runfinch/finch) if you don't have Docker Desktop
 docker run --rm --volume <path_to_lza_configuration_folder>:/lza/config lza-validator:<lza_release>
 ```
 
-**Note**: If you use [dynamic lookups from the parameter store](https://docs.aws.amazon.com/solutions/latest/landing-zone-accelerator-on-aws/working-with-solution-specific-variables.html) within configuration files, then you need to pass AWS credentials to the lza-validator container so it can lookup the ssm parameters. Here are some examples:
+**Note**: If you use [dynamic lookups from the parameter store](https://docs.aws.amazon.com/solutions/latest/landing-zone-accelerator-on-aws/working-with-solution-specific-variables.html) within configuration files or `v1.7.0+`, then you need to pass AWS credentials to the lza-validator container so it can lookup the ssm parameters. Here are some examples:
 
 ```
 docker run --rm \
