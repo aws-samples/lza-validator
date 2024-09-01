@@ -31,7 +31,8 @@ Once the build is completed. You should be able to see the docker images.
 docker images | grep lza-validator
 ```
 
-_Use [finch](https://github.com/runfinch/finch) if you don't have Docker Desktop license._
+- _Use [finch](https://github.com/runfinch/finch) if you don't have Docker Desktop license._
+- _Use [node bullseye](https://github.com/aws-samples/lza-validator/pull/8/files) as the base image for better compatibility if build on ARM based computers e.g Mac M1/M2/M3_
 
 ## Usage
 
@@ -105,7 +106,6 @@ lza-validator v1.6.3 ~/aws-accelerator-config
 ## Others
 
 - [Use LZA-Validator in GitHub Action](https://github.com/aws-samples/lza-validator/issues/7)
-- [Use LZA-RepoSync to sync LZA configuration repository from GitHub/GitLab/Bitbucket to CodeCommit](https://github.com/aws-samples/sample-repository-sync-code-for-landing-zone-accelerator)
 
 ## Security
 
