@@ -1,4 +1,4 @@
-FROM node:18-alpine3.20
+FROM node:22-alpine3.22
 WORKDIR /lza
 COPY landing-zone-accelerator-on-aws .
 COPY lza-validator.sh ./lza-validator.sh
